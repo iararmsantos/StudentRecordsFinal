@@ -1,0 +1,73 @@
+/*
+Purpose: script creates the tables for the Programming StudentGUI database
+Authors: Iara Santos
+Date: 11/16/2021
+*/
+DROP DATABASE IF EXISTS studentgui;
+CREATE DATABASE studentgui;
+
+USE studentgui;
+
+CREATE TABLE student
+(
+studentId VARCHAR(10) PRIMARY KEY,
+firstName VARCHAR(45) NOT NULL,
+lastName VARCHAR(45) NOT NULL,
+program VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE marks
+(
+studentId VARCHAR(10) PRIMARY KEY,
+mark1 FLOAT(2) NOT NULL,
+mark2 FLOAT(2) NOT NULL,
+mark3 FLOAT(2) NOT NULL,
+mark4 FLOAT(2) NOT NULL,
+mark5 FLOAT(2) NOT NULL,
+mark6 FLOAT(2) NOT NULL,
+FOREIGN KEY (studentId) REFERENCES Student(studentId)
+);
+
+INSERT INTO student (studentId, firstName, lastName, program) VALUES
+('A00000001', 'Harry', 'Potter', 'Potions'),
+('A00000002', 'Ronny', 'Weasley', 'Transfiguration'),
+('A00000003', 'Gina', 'Weasley', 'D.A.D.A'),
+('A00000004', 'Hermione', 'Granger', 'Potions');
+
+INSERT INTO marks VALUES
+((SELECT studentId from student WHERE studentId = 'A00000001'), 95.25, 65.25, 55.36, 99.92, 99.92, 99.92),
+((SELECT studentId from student WHERE studentId = 'A00000002'), 85.25, 75.25, 65.36, 79.92, 99.42, 85.92),
+((SELECT studentId from student WHERE studentId = 'A00000003'), 75.25, 85.25, 75.36, 89.92, 99.42, 85.92),
+((SELECT studentId from student WHERE studentId = 'A00000004'), 65.25, 95.25, 85.36, 99.92, 95.25, 85.36);
+
+SELECT student.studentId, student.firstName, student.lastName, student.program, 
+marks.mark1, marks.mark2, marks.mark3,marks.mark4, marks.mark5, marks.mark6 
+FROM marks INNER JOIN student 
+ON marks.studentId=student.studentId;
+
+INSERT INTO student (studentId, firstName, lastName, program) VALUES
+('A00000001', 'Neville', 'Longbottom', 'Herbology');
+
+INSERT INTO marks (studentId, mark1, mark2, mark3, mark4, mark5, mark6) 
+VALUES ('A00000003', 99.52, 89.89, 95.95, 85.96, 100.0, 100.0);
+
+
+UPDATE
+
+UPDATE student SET firstName = 'Lucius', lastName = 'Malfoy', program = 'Potion'
+WHERE studentId = 'A00000006';
+
+UPDATE marks SET mark1 = 99.55, mark2 = 93.56, mark3 = 88.54, mark4 = 95.23, mark5 = 85.41, mark6 = 78.54
+WHERE studentid = 'A00000006'
+
+fillstudents after insert
+
+disable after if students id=1 and next if student id = list size after edit
+
+
+             
+
+
+
+
+
